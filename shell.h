@@ -21,4 +21,3 @@ char *get_path(char *command);
 void free_args(char **args);
 
 #endif /* SHELL_H */
-

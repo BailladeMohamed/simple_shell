@@ -1,41 +1,23 @@
-#include "shell.h"
+#ifndef SHELL_H
+#define SHELL_H
 
-/**
- * main - Entry point of the shell program
- * @argc: The argument count
- * @envp: The environment variables
- *
- * Return: Always 0
- */
-int main(int argc, char *envp[])
-{
-	char *input = NULL;
-	char **args = NULL;
-	int status = 0;
-	size_t len = 0;
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <sys/stat.h>
+#include <signal.h>
+#include <string.h>
+#include <fcntl.h>
+#include <dirent.h>
 
-	(void)argc;
+/* Function Prototypes */
+int main(int argc, char *envp[]);
+char **parse_input(char *input);
+int execute_command(char **args, char *envp[]);
+int execute_builtin(char **args, char *envp[]);
+char *get_path(char *command);
+void free_args(char **args);
 
-	while (1)
-	{
-		printf("$ ");
-		input = NULL;
-
-		if (getline(&input, &len, stdin) == -1)
-		{
-			if (isatty(STDIN_FILENO))
-				printf("\n");
-			break;
-		}
-
-		args = parse_input(input);
-		if (args != NULL)
-		{
-			status = execute_command(args, envp);
-			free_args(args);
-		}
-		free(input);
-	}
-
-	return (status);
-}
+#endif /* SHELL_H */
