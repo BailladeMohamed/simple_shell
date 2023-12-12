@@ -1,41 +1,42 @@
 #include "shell.h"
 
 /**
- * main - Entry point of the shell program
- * @argc: The argument count
- * @envp: The environment variables
+ * main - Entry point of the shell program.
+ * @ac: Number of arguments passed to the program.
+ * @av: List storing arguments to the program.
  *
- * Return: Always 0
+ * Return: 0 on success.
  */
-int main(int argc, char *envp[])
+int main(int ac, char *av[])
 {
-	char *input = NULL;
-	char **args = NULL;
-	int status = 0;
-	size_t len = 0;
+	int is_interactive;
+	char prompt[] = "$ ";
+	char *command = NULL;
 
-	(void)argc;
+	(void)ac;
+	(void)av;
 
-	while (1)
+	is_interactive = isatty(STDIN_FILENO);
+
+	if (is_interactive)
 	{
-		printf("$ ");
-		input = NULL;
-
-		if (getline(&input, &len, stdin) == -1)
+		while (1)
 		{
-			if (isatty(STDIN_FILENO))
-				printf("\n");
-			break;
+			write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
+			command = input();
+			run_shell(command, av[0]);
+			free(command);
 		}
-
-		args = parse_input(input);
-		if (args != NULL)
+	}
+	else
+	{
+		command = input();
+		if (command != NULL)
 		{
-			status = execute_command(args, envp);
-			free_args(args);
+			run_shell(command, av[0]);
+			free(command);
 		}
-		free(input);
 	}
 
-	return (status);
+	return (0);
 }
