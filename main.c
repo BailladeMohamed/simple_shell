@@ -20,7 +20,14 @@ int main(int ac, char *av[])
 
 	if (is_interactive)
 	{
+<<<<<<< HEAD
 		while (1)
+=======
+		write(1, "$ ", 2);
+		input = NULL;
+
+		if (getline(&input, &len, stdin) == -1)
+>>>>>>> b6bebbf (update)
 		{
 			write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
 			command = input();
