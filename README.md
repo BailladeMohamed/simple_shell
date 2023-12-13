@@ -1,6 +1,5 @@
 0x16. C - Simple Shell
 
-. General
 
 - Who designed and implemented the original Unix operating system
 - Who wrote the first version of the UNIX shell
