@@ -9,17 +9,7 @@
 #include <errno.h>
 #include <signal.h>
 
-<<<<<<< HEAD
 extern char **environ;
-=======
-/* Function Prototypes */
-char *_strdup(char *s);
-char **parse_input(char *input);
-int execute_command(char **args, char *envp[]);
-int execute_builtin(char **args, char *envp[]);
-char *get_path(char *command);
-void free_args(char **args);
->>>>>>> b6bebbf (update)
 
 /* reading, executing command */
 char *input(void);

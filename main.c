@@ -6,7 +6,7 @@
  * @av: List storing arguments to the program.
  *
  * Return: 0 on success.
- */
+ **/
 int main(int ac, char *av[])
 {
 	int is_interactive;
@@ -20,16 +20,9 @@ int main(int ac, char *av[])
 
 	if (is_interactive)
 	{
-<<<<<<< HEAD
 		while (1)
-=======
-		write(1, "$ ", 2);
-		input = NULL;
-
-		if (getline(&input, &len, stdin) == -1)
->>>>>>> b6bebbf (update)
 		{
-			write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
+			write(STDOUT_FILENO, prompt, sizeof(prompt));
 			command = input();
 			run_shell(command, av[0]);
 			free(command);
